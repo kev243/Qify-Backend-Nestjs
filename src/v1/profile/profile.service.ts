@@ -16,7 +16,6 @@ import { generateSlug } from 'utils/generate-slug';
 export class ProfileService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Récupère le profil par userId
   async getProfileByUserId(userId: string) {
     try {
       const profile = await this.prisma.profile.findUnique({
@@ -84,7 +83,6 @@ export class ProfileService {
     }
   }
 
-  // Création du username
   async createUsername(data: createUsernameDto) {
     try {
       // Nettoyage et validation du username
@@ -100,7 +98,6 @@ export class ProfileService {
         throw new ConflictException('Username already taken');
       }
 
-      // Créeation du  profil
       const profile = await this.prisma.profile.create({
         data: {
           username: slug,
@@ -124,7 +121,6 @@ export class ProfileService {
     }
   }
 
-  // Mise à jour du username
   async updateUsername(data: updateUsernameDto) {
     try {
       // Validation et nettoyage du username

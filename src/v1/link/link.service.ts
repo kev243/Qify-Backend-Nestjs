@@ -16,7 +16,6 @@ import { generateSlug } from '../../../utils/generate-slug';
 export class LinkService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // Récupère tous les liens pour un utilisateur donné
   async getAllLinksForUser(userId: string) {
     try {
       if (!userId) {
@@ -37,7 +36,6 @@ export class LinkService {
     }
   }
 
-  // Crée un nouveau lien
   async createLink(data: createLinkDto) {
     try {
       const slug = generateSlug(data.title);
@@ -62,7 +60,6 @@ export class LinkService {
     }
   }
 
-  // Met à jour un lien existant
   async updateLink(data: updateLinkDto) {
     try {
       // Vérifie que le lien existe et appartient à l'utilisateur
@@ -103,10 +100,8 @@ export class LinkService {
     }
   }
 
-  // Mettre à jour le statut (actif/inactif) d'un lien
   async changeStatusLink(data: changeStatusLinkDto) {
     try {
-      // Vérifie que le lien existe et appartient à l'utilisateur
       const existingLink = await this.prisma.link.findFirst({
         where: {
           id: data.linkId,
@@ -142,10 +137,8 @@ export class LinkService {
     }
   }
 
-  // Supprimer un lien
   async deleteLink(data: deleteLinkDto) {
     try {
-      // Vérifie que le lien existe et appartient à l'utilisateur
       const existingLink = await this.prisma.link.findFirst({
         where: {
           id: data.linkId,
@@ -159,7 +152,6 @@ export class LinkService {
         );
       }
 
-      // Supprime le lien
       await this.prisma.link.delete({
         where: { id: data.linkId },
       });
